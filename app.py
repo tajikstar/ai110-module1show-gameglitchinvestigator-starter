@@ -12,8 +12,8 @@ def get_hint_message(outcome: str):
     """Get the hint message for an outcome."""
     messages = {
         "Win": "🎉 Correct!",
-        "Too High": "📈 Go HIGHER!",
-        "Too Low": "📉 Go LOWER!",
+        "Too High": "📉 Go LOWER!",
+        "Too Low": "📈 Go HIGHER!",
     }
     return messages.get(outcome, "")
 
