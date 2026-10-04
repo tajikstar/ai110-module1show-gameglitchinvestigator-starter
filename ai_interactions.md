@@ -10,67 +10,25 @@
 
 **What task did you give the agent?**
 
-<!-- Describe the goal you asked the agent to accomplish -->
+I gave the agent two tasks using these exact prompts:
+1. "please read the readme.md file and find the state bug"
+2. "when I enter 1 the game tells me to go lower and when i enter 100 the game tells me to go higher. fix this bug"
 
 **What did the agent do?**
 
-<!-- List the steps the agent took (files edited, commands run, etc.) -->
+- Ran bash commands to list directory contents and read `README.md`, `app.py`, `logic_utils.py`, and `requirements.txt`.
+- Checked the git repository history for previous changes.
+- Autonomously wrote and ran a headless Streamlit `AppTest` script (`probe_state.py`) to simulate clicking the submit button multiple times and observe the session state behavior.
+- Generated a Markdown plan file (`please-read-the-readme-md-curried-milner.md`) diagnosing that the original state bug was already fixed, but identified remaining bugs: lying hints caused by string casting, an off-by-one attempt counter, and unrefactored code.
+- Edited `app.py` and `logic_utils.py` to remove the buggy string-casting, reset the attempts counter to 0, and move the game logic into the utility file.
+- Ran `pytest` to ensure all 3 tests passed.
+- Attempted to commit the code to Git, ran into an identity error, configured Git, and successfully committed.
+- For the second prompt, it diagnosed that the string hint messages were swapped, edited `app.py` to fix the backward text, and committed the final fix.
 
 **What did you have to verify or fix manually?**
 
-<!-- Describe anything the agent got wrong or that required human review -->
+- I had to manually approve the agent's proposed plan file before it executed the edits to the Python files.
+- The agent's initial `git commit` failed because Git was not configured (`Author identity unknown`). The agent had to run `git config` with my email and name to resolve the error before the commit could successfully process.
 
 ---
 
-## Test Generation (SF7)
-
-> Document how you used AI to help generate or improve tests.
-
-| Edge Case | Prompt Used | AI-Suggested Test | Did It Pass? | Your Reasoning |
-|-----------|-------------|-------------------|--------------|----------------|
-| | | | | |
-| | | | | |
-| | | | | |
-
----
-
-## Linting & Style (SF9)
-
-> Document your use of AI for linting or code style improvements.
-
-**Prompt used:**
-
-```
-<!-- Paste the prompt you gave the AI -->
-```
-
-**Linting output before:**
-
-```
-<!-- Paste relevant linter warnings/errors -->
-```
-
-**Changes applied:**
-
-<!-- Describe what you changed based on the AI's suggestions -->
-
----
-
-## Model Comparison (SF11)
-
-> Compare two AI models on the same task.
-
-**Task given to both models:**
-
-<!-- Describe what you asked each model to do -->
-
-| | Model A | Model B |
-|-|---------|---------|
-| **Model name** | | |
-| **Response summary** | | |
-| **More Pythonic?** | | |
-| **Clearer explanation?** | | |
-
-**Which did you prefer and why?**
-
-<!-- Your conclusion -->
